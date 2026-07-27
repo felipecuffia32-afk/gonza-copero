@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>La Vida de Gonzalo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+
+background:
+radial-gradient(circle at top,#2d2d2d,#111 60%);
+color:white;
+overflow-x:hidden;
+overflow-y:auto;
+min-height:100vh;
+
+}
+
+#menu{
+
+min-height:100vh;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+padding:20px;
+
+}
+
+#titulo{
+
+font-size:65px;
+font-weight:800;
+
+letter-spacing:3px;
+
+}
+
+#sub{
+
+margin-top:10px;
+
+opacity:.7;
+
+}
+
+#start{
+
+margin-top:50px;
+
+padding:20px 70px;
+
+font-size:24px;
+
+background:#18b6ff;
+
+border:none;
+
+border-radius:15px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+#start:hover{
+
+transform:scale(1.06);
+
+background:#36c2ff;
+
+}
+
+#game{
+
+display:none;
+
+width:100%;
+min-height:100vh;
+
+padding:40px;
+
+}
+
+.top{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:flex-start;
+
+}
+
+.card{
+
+width:340px;
+
+background:#1e1e1e;
+
+border-radius:25px;
+
+padding:25px;
+
+box-shadow:0 0 30px rgba(0,0,0,.5);
+
+}
+
+.nombre{
+
+font-size:36px;
+
+font-weight:800;
+
+}
+
+.ovr{
+
+font-size:85px;
+
+font-weight:800;
+
+color:#18b6ff;
+
+transition:.4s;
+
+}
+
+.edad{
+
+margin-top:5px;
+
+opacity:.8;
+
+}
+
+.progress{
+
+margin-top:15px;
+
+height:14px;
+
+background:#444;
+
+border-radius:20px;
+
+overflow:hidden;
+
+}
+
+.progress div{
+
+height:100%;
+
+width:0%;
+
+background:#18b6ff;
+
+transition:1s;
+
+}
+
+.stats{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:12px;
+
+margin-top:25px;
+
+}
+
+.stat{
+
+background:#292929;
+
+padding:15px;
+
+border-radius:12px;
+
+}
+
+.stat h3{
+
+font-size:14px;
+
+opacity:.7;
+
+margin-bottom:8px;
+
+}
+
+.valor{
+
+font-size:25px;
+
+font-weight:700;
+
+}
+
+.panel{
+
+width:calc(100% - 380px);
+
+margin-left:30px;
+
+}
+
+.evento{
+
+background:#1d1d1d;
+
+border-radius:25px;
+
+padding:35px;
+
+min-height:320px;
+
+box-shadow:0 0 30px rgba(0,0,0,.4);
+
+}
+
+#edadGrande{
+
+font-size:24px;
+
+margin-bottom:20px;
+
+opacity:.7;
+
+}
+
+#tituloEvento{
+
+font-size:40px;
+
+font-weight:700;
+
+margin-bottom:25px;
+
+}
+
+#textoEvento{
+
+font-size:22px;
+
+line-height:1.5;
+
+}
+
+.botones{
+
+margin-top:40px;
+
+display:grid;
+
+gap:18px;
+
+}
+
+button{
+
+padding:22px;
+
+font-size:22px;
+
+cursor:pointer;
+
+background:#18b6ff;
+
+border:none;
+
+border-radius:15px;
+
+transition:.25s;
+
+color:white;
+
+}
+
+button:hover{
+
+transform:translateY(-3px);
+
+}
+
+#mensaje{
+
+margin-top:30px;
+
+font-size:20px;
+
+color:#ffd966;
+
+min-height:40px;
+
+}
+
+#logro{
+
+position:absolute;
+
+top:20px;
+
+right:-420px;
+
+width:360px;
+
+background:#ffb300;
+
+color:black;
+
+padding:20px;
+
+border-radius:15px;
+
+font-weight:bold;
+
+transition:.5s;
+
+}
+
+.gameover{
+
+position:fixed;
+inset:0;
+
+display:none;
+justify-content:center;
+align-items:center;
+
+background:black;
+flex-direction:column;
+z-index:999;
+
+overflow-y:auto;
+
+}
+
+.gameover h1{
+
+font-size:90px;
+
+color:red;
+
+}
+
+.gameover p{
+
+margin-top:20px;
+
+font-size:30px;
+
+}
+
+.gameover button{
+
+margin-top:40px;
+
+width:300px;
+
+}
+
+/* =====================================
+   MOBILE RESPONSIVE
+===================================== */
+
+@media (max-width: 900px){
+
+body{
+    overflow-x:hidden;
+    overflow-y:auto;
+}
+
+
+#menu{
+
+    padding:20px;
+    text-align:center;
+
+}
+
+
+#titulo{
+
+    font-size:38px;
+    line-height:1.2;
+
+}
+
+
+#sub{
+
+    font-size:16px;
+
+}
+
+
+#start{
+
+    width:80%;
+    padding:18px;
+    font-size:20px;
+
+}
+
+
+
+#game{
+
+    height:auto;
+    min-height:100vh;
+    padding:20px;
+
+}
+
+
+.top{
+
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+
+}
+
+
+
+.card{
+
+    width:100%;
+    padding:20px;
+
+}
+
+
+
+.nombre{
+
+    font-size:30px;
+
+}
+
+
+.ovr{
+
+    font-size:65px;
+
+}
+
+
+
+.stats{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+
+
+.stat{
+
+    padding:12px;
+
+}
+
+
+.valor{
+
+    font-size:22px;
+
+}
+
+
+
+.panel{
+
+    width:100%;
+    margin-left:0;
+
+}
+
+
+
+.evento{
+
+    padding:25px;
+    min-height:auto;
+
+}
+
+
+
+#edadGrande{
+
+    font-size:18px;
+
+}
+
+
+#tituloEvento{
+
+    font-size:28px;
+
+}
+
+
+
+#textoEvento{
+
+    font-size:18px;
+    line-height:1.4;
+
+}
+
+
+
+.botones{
+
+    margin-top:25px;
+
+}
+
+
+
+button{
+
+    padding:18px;
+    font-size:18px;
+
+}
+
+
+
+#mensaje{
+
+    font-size:17px;
+
+}
+
+
+
+#logro{
+
+    width:85%;
+    right:-100%;
+
+}
+
+
+
+.gameover h1{
+
+    font-size:55px;
+    text-align:center;
+
+}
+
+
+
+.gameover p{
+
+    font-size:22px;
+    text-align:center;
+
+}
+
+
+
+}
+
+
+
+@media (max-width:450px){
+
+
+#titulo{
+
+    font-size:30px;
+
+}
+
+
+.card{
+
+    border-radius:18px;
+
+}
+
+
+.ovr{
+
+    font-size:55px;
+
+}
+
+
+.stats{
+
+    grid-template-columns:1fr;
+
+}
+
+
+#tituloEvento{
+
+    font-size:24px;
+
+}
+
+
+#textoEvento{
+
+    font-size:16px;
+
+}
+
+
+button{
+
+    font-size:16px;
+
+}
+
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="menu">
+
+<div id="titulo">
+
+LA VIDA DE GONZALO
+
+</div>
+
+<div id="sub">
+
+Simulador de carrera vital
+
+</div>
+
+<button id="start">
+
+EL COPERO DE GONZALO.
+JUGAR.
+
+</button>
+
+</div>
+
+<div id="game">
+
+<div id="logro">
+
+🏆 Logro desbloqueado
+
+</div>
+
+<div class="top">
+
+<div class="card">
+
+<div class="nombre">
+
+GONZALO
+
+</div>
+
+<div class="ovr" id="ovr">
+
+60
+
+</div>
+
+<div class="edad">
+
+Edad:
+<span id="edad">
+
+20
+
+</span>
+
+años
+
+</div>
+
+<div class="progress">
+
+<div id="barraEdad"></div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+
+<h3>💰 DINERO</h3>
+
+<div class="valor" id="dinero">
+
+100
+
+</div>
+
+</div>
+
+<div class="stat">
+
+<h3>❤️ AMOR</h3>
+
+<div class="valor" id="amor">
+
+20
+
+</div>
+
+</div>
+
+<div class="stat">
+
+<h3>👬 AMIGOS</h3>
+
+<div class="valor" id="amigos">
+
+50
+
+</div>
+
+</div>
+
+<div class="stat">
+
+<h3>💪 SALUD</h3>
+
+<div class="valor" id="salud">
+
+100
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<div class="evento">
+
+<div id="edadGrande">
+
+AÑO 2026
+
+</div>
+
+<div id="tituloEvento">
+
+Evento
+
+</div>
+
+<div id="textoEvento">
+
+Texto
+
+</div>
+
+<div class="botones">
+
+<button id="op1"></button>
+
+<button id="op2"></button>
+
+</div>
+
+<div id="mensaje">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="gameover" id="gameover">
+
+<h1>
+
+GAME OVER
+
+</h1>
+
+<p id="causaMuerte">
+
+</p>
+
+<button onclick="location.reload()">
+
+Volver a jugar
+
+</button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
